@@ -8,13 +8,13 @@ let durationsDict = {};
 const inputYear = document.getElementById('year');
 const inputMonth = document.getElementById('month');
 const inputDate = document.getElementById('date');
-const inputDistance=document.getElementById('distance');
-const inputDuration=document.getElementById('duration');
+const inputDistance = document.getElementById('distance');
+const inputDuration = document.getElementById('duration');
 
 
 const screenshotButton = document.getElementById('screenshot-btn');
 
-const submitButton=document.getElementById('submit-button');
+const submitButton = document.getElementById('submit-button');
 
 const monthDatesText = document.getElementById('month-dates-text');
 const monthBtnPrev = document.getElementById('month-button-prev');
@@ -50,9 +50,9 @@ let offsetX = 0;
 
 let highlightBarKey = -1;
 
-let maxDistScale=6;
+let maxDistScale = 6;
 
-let scalesTexts=[];
+let scalesTexts = [];
 
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -80,6 +80,11 @@ document.addEventListener('DOMContentLoaded', function () {
         }).catch(err => {
             console.error('Screenshot capture failed:', err);
         });
+    });
+
+    document.getElementById("randomize-btn").addEventListener('click', function (event) {
+        event.preventDefault();
+        createRandomizeData();
     });
 
     monthBtnPrev.addEventListener('click', reduceMonthValue);
@@ -178,7 +183,7 @@ function handleFormSubmit(event) {
 
     const distance = parseFloat(inputDistance.value);
 
-    addRunData(currentDate, distance, duration);
+    addRunDataSingle(currentDate, distance, duration);
 }
 
 
@@ -211,10 +216,10 @@ function updateYearMonthDate() {
 }
 
 
-document.getElementById('set-screen-size').addEventListener('click', function () {
-    const screenSize = document.getElementById('screen-size').value;
-    setScreenSize(screenSize);
-});
+// document.getElementById('set-screen-size').addEventListener('click', function () {
+//     const screenSize = document.getElementById('screen-size').value;
+//     setScreenSize(screenSize);
+// });
 
 function setScreenSize(size) {
     const [width, height] = size.split('x').map(Number);
@@ -231,10 +236,10 @@ function setScreenSize(size) {
 // });
 
 
-function addRunData(date, distance, duration) {
+function addRunDataSingle(date, distance, duration) {
 
-    if(distance+1>maxDistScale){
-        maxDistScale=Math.floor(distance+2);
+    if (distance > maxDistScale) {
+        maxDistScale = Math.floor(distance + 1);
         updateBarHeightsScale();
         updateMaxScaleTexts();
     }
@@ -269,13 +274,16 @@ function addRunData(date, distance, duration) {
     updateRunsMetrics();
 }
 
-function updateBarHeightsScale(){
-    
-    for(key in distancesDict){
-        const dist=distancesDict[key];
-        const percentage=dist/maxDistScale;
 
-        barsDict[key].style.height=`${percentage*100}%`
+
+
+function updateBarHeightsScale() {
+
+    for (key in distancesDict) {
+        const dist = distancesDict[key];
+        const percentage = dist / maxDistScale;
+
+        barsDict[key].style.height = `${percentage * 100}%`
     }
 
 }
@@ -406,8 +414,8 @@ function updateCurrentDateText() {
         const bar = barsDict[highlightBarKey];
         bar.className = 'bar';
         console.log(`Class name set to 'bar' for key: ${highlightBarKey}`)
-        highlightBarKey=-1;
-        submitButton.textContent="添加数据"
+        highlightBarKey = -1;
+        submitButton.textContent = "添加数据"
     }
 
     if (currentDate in barsDict) {
@@ -416,10 +424,10 @@ function updateCurrentDateText() {
         bar.className = 'bar highlight';
         highlightBarKey = currentDate;
 
-        inputDistance.value=distancesDict[currentDate];
-        inputDuration.value=durationsDict[currentDate];
+        inputDistance.value = distancesDict[currentDate];
+        inputDuration.value = durationsDict[currentDate];
 
-        submitButton.textContent="修改数据"
+        submitButton.textContent = "修改数据"
 
         console.log(`Class name set to 'bar highlight' for key: ${currentDate}`)
     }
@@ -523,18 +531,130 @@ function updateRunsMetrics() {
 }
 
 
-function updateMaxScaleTexts(){
+function updateMaxScaleTexts() {
 
-    const count=scalesTexts.length;
+    const count = scalesTexts.length;
 
-    let increment=maxDistScale/(count-1);
+    let increment = maxDistScale / (count - 1);
 
-    for(let i =0;i<scalesTexts.length;i++){
+    for (let i = 0; i < scalesTexts.length; i++) {
 
-        const scale=Math.round(i*increment);
+        const scale = Math.round(i * increment);
 
-        scalesTexts[i].textContent=scale;
+        scalesTexts[i].textContent = scale;
     }
+
+}
+
+function createRandomizeData() {
+
+
+    clearRunData();
+    let count = getRandomInt(8, 13);
+
+    dates = getRandomNonRepeatingNumbers(1, daysInMonth, count);
+
+    console.log(dates);
+
+    let maxDist=0;
+
+    dates.forEach(date => {
+
+        const distance = Math.floor(getRandomFloat(4.0, 6.0)*100)/100;
+        const pace=Math.floor(getRandomFloat(7.5,8.8)*100)/100;
+        const duration = Math.floor(distance*pace*100)/100;
+
+        if(distance>maxDist){
+            maxDist=distance;
+        }
+
+        distancesDict[date] = distance;
+        durationsDict[date] = duration;
+
+    });
+
+    if (maxDist > maxDistScale) {
+        maxDistScale = Math.floor(maxDist + 1);
+        
+    }
+
+
+    dates.forEach(date => {
+
+        const bar = document.createElement('div');
+
+
+        if (currentDate == date) {
+            bar.className = 'bar highlight';
+            highlightBarKey = date;
+
+        } else {
+            bar.className = 'bar';
+        }
+
+        const distance=distancesDict[date];
+
+        const barHeight = (distance / maxDistScale) * 100;
+        const barLeft = (date / daysInMonth) * 100;
+
+        barsDict[date] = bar;
+        bar.style.height = `${barHeight}%`;
+        bar.style.left = `${barLeft}%`;
+        barChart.appendChild(bar);
     
+    });
+
+    updateMaxScaleTexts();
+    updateCurrentDateDist();
+    updateCurrentDateText();
+    updateRunsMetrics();
+
+}
+
+
+function clearRunData() {
+
+
+    maxDistScale = 6;
+    updateMaxScaleTexts();
+
+    distancesDict = {};
+    durationsDict = {};
+
+    for (key in barsDict) {
+        barsDict[key].remove();
+        delete barsDict[key];
+    }
+
+
+
+    updateCurrentDateDist();
+    updateRunsMetrics();
+}
+
+function getRandomInt(min, max) {
+    // Ensure min and max are included
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function getRandomFloat(min, max) {
+    // Ensure min and max are included
+    return Math.random() * (max - min + 1) + min;
+}
+
+
+
+function getRandomNonRepeatingNumbers(min, max, count) {
+    // Generate an array containing all numbers within the specified range
+    const range = Array.from({ length: max - min + 1 }, (_, i) => i + min);
+
+    // Shuffle the array using the Fisher-Yates algorithm
+    for (let i = range.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [range[i], range[j]] = [range[j], range[i]];
+    }
+
+    // Return the first 'count' numbers from the shuffled array
+    return range.slice(0, count);
 }
 
