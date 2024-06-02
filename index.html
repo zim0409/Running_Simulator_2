@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Running Faker</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="input-section">
+            <h1>跑步数据记录器</h1>
+            <form id="running-form">
+                <label for="year">年:</label>
+                <select id="year" name="year" required>
+                    <!-- Options will be populated by JavaScript -->
+                </select>
+
+                <label for="month">月:</label>
+                <select id="month" name="month" required>
+                    <!-- Options will be populated by JavaScript -->
+                </select>
+
+                <label for="date">日:</label>
+                <select id="date" name="date" required>
+                    <!-- Options will be populated by JavaScript -->
+                </select>
+                <label for="distance">距离 (km):</label>
+                <input type="number" id="distance" name="distance" step="0.01" required value="4.5">
+                <label for="duration">时长 (min):</label>
+                <input type="number" id="duration" name="duration" step="0.01" required value="30">
+                <label for="weights">体重 (kg):</label>
+                <input type="number" id="body-weights" name="body-weights" step="1" required value="60">
+                <label for="weights">身高 (cm):</label>
+                <input type="number" id="body-height" name="body-height" step="1" required value="168">
+                <button type="submit" id="submit-button">添加数据</button>
+            </form>
+            <form id="screen-size-form">
+                <label for="screen-size">Screen Size:</label>
+                <select id="screen-size" name="screen-size">
+                    <option value="430x932">iPhone 15 Pro Max</option>
+                    <option value="375x667">iPhone 6/7/8</option>
+                    <option value="414x896">iPhone XR</option>
+                    <option value="360x640">Samsung Galaxy S8</option>
+                </select>
+                <button type="button" id="set-screen-size">Set Screen
+                    Size</button>
+                <button id="screenshot-btn">Save Screenshot</button>
+            </form>
+        </div>
+        <div class="phone-screen" id="phone-screen">
+            <div id="screen-area" style="width: 100%; height: 100%; position: relative;">
+                <div class="top-bar" name="top-bar">
+                    <div class="signal-wifi-battery" name="signal-wifi-battery"
+                        style="width: 78.40px; height: 13px; right: 22px; top: 19px; position: absolute; justify-content: flex-start; align-items: flex-start; gap: 8px; display: inline-flex">
+                        <svg width="79" height="13" viewBox="0 0 79 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M10 3C10 2.44772 10.4477 2 11 2H12C12.5523 2 13 2.44772 13 3V11C13 11.5523 12.5523 12 12 12H11C10.4477 12 10 11.5523 10 11V3Z"
+                                fill="black" />
+                            <path
+                                d="M15 1C15 0.447715 15.4477 0 16 0H17C17.5523 0 18 0.447715 18 1V11C18 11.5523 17.5523 12 17 12H16C15.4477 12 15 11.5523 15 11V1Z"
+                                fill="black" />
+                            <path
+                                d="M5 6.5C5 5.94772 5.44772 5.5 6 5.5H7C7.55228 5.5 8 5.94772 8 6.5V11C8 11.5523 7.55228 12 7 12H6C5.44772 12 5 11.5523 5 11V6.5Z"
+                                fill="black" />
+                            <path
+                                d="M0 9C0 8.44772 0.447715 8 1 8H2C2.55228 8 3 8.44772 3 9V11C3 11.5523 2.55228 12 2 12H1C0.447715 12 0 11.5523 0 11V9Z"
+                                fill="black" />
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M34.5005 2.58753C36.967 2.58764 39.3393 3.55505 41.1269 5.28982C41.2615 5.42375 41.4766 5.42206 41.6092 5.28603L42.896 3.96045C42.9631 3.89146 43.0006 3.798 43 3.70076C42.9994 3.60353 42.9609 3.51052 42.893 3.44234C38.2011 -1.14745 30.7991 -1.14745 26.1072 3.44234C26.0392 3.51047 26.0006 3.60345 26 3.70069C25.9994 3.79792 26.0367 3.89141 26.1038 3.96045L27.391 5.28603C27.5235 5.42226 27.7388 5.42396 27.8733 5.28982C29.6612 3.55494 32.0337 2.58752 34.5005 2.58753ZM34.5359 6.58937C35.8911 6.58929 37.198 7.10346 38.2025 8.03199C38.3384 8.16376 38.5524 8.16091 38.6849 8.02555L39.9702 6.69997C40.0379 6.63044 40.0754 6.53611 40.0744 6.4381C40.0735 6.34008 40.034 6.24656 39.965 6.17844C36.9059 3.27385 32.1685 3.27385 29.1094 6.17844C29.0403 6.24656 29.0009 6.34013 29 6.43817C28.9991 6.53622 29.0368 6.63054 29.1046 6.69997L30.3895 8.02555C30.522 8.16091 30.736 8.16376 30.8719 8.03199C31.8758 7.10408 33.1816 6.58995 34.5359 6.58937ZM37.1496 9.17672C37.1515 9.27501 37.1137 9.36977 37.0449 9.43863L34.8217 11.7289C34.7565 11.7962 34.6676 11.834 34.5749 11.834C34.4822 11.834 34.3933 11.7962 34.3282 11.7289L32.1045 9.43863C32.0358 9.36972 31.998 9.27492 32.0001 9.17663C32.0021 9.07834 32.0438 8.98527 32.1153 8.91938C33.5351 7.69354 35.6147 7.69354 37.0345 8.91938C37.106 8.98532 37.1476 9.07843 37.1496 9.17672Z"
+                                fill="black" />
+                            <path
+                                d="M77 5V9.22034C77.8491 8.86291 78.4012 8.0314 78.4012 7.11017C78.4012 6.18894 77.8491 5.35744 77 5"
+                                fill="#999999" />
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M51 4C51 1.79086 52.7909 0 55 0H72V13H55C52.7909 13 51 11.2091 51 9V4Z"
+                                fill="black" />
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M76 9C76 11.2091 74.2091 13 72 13V13L72 -3.49691e-07V-3.49691e-07C74.2091 -1.56562e-07 76 1.79086 76 4L76 9Z"
+                                fill="#999999" />
+                            <path
+                                d="M58.2407 2.62784C58.6147 2.62784 58.9746 2.69058 59.3202 2.81605C59.6682 2.94152 59.9784 3.14157 60.2506 3.41619C60.5252 3.69081 60.7419 4.0554 60.9005 4.50994C61.0615 4.96212 61.1431 5.51728 61.1455 6.17543C61.1455 6.79332 61.0757 7.34493 60.936 7.83026C60.7987 8.31321 60.601 8.72396 60.343 9.0625C60.0849 9.40104 59.7736 9.65909 59.409 9.83665C59.0444 10.0118 58.6372 10.0994 58.1874 10.0994C57.7021 10.0994 57.2736 10.0059 56.9019 9.81889C56.5302 9.6295 56.2307 9.37263 56.0035 9.0483C55.7786 8.72159 55.6424 8.35464 55.5951 7.94744H57.1114C57.1706 8.21259 57.2949 8.41856 57.4843 8.56534C57.6737 8.70975 57.9081 8.78196 58.1874 8.78196C58.6609 8.78196 59.0208 8.57599 59.267 8.16406C59.5132 7.74976 59.6375 7.18277 59.6398 6.46307H59.5901C59.4812 6.67614 59.3344 6.85961 59.1498 7.01349C58.9651 7.16501 58.7532 7.2822 58.5141 7.36506C58.2774 7.44792 58.0252 7.48935 57.7577 7.48935C57.3292 7.48935 56.9469 7.38873 56.6107 7.1875C56.2745 6.98627 56.0094 6.70928 55.8153 6.35653C55.6211 6.00379 55.5241 5.60133 55.5241 5.14915C55.5217 4.66146 55.6342 4.22704 55.8614 3.84588C56.0887 3.46473 56.4059 3.16643 56.8131 2.95099C57.2227 2.73319 57.6985 2.62547 58.2407 2.62784ZM58.2513 3.83523C58.0122 3.83523 57.7992 3.89205 57.6121 4.00568C57.4275 4.11932 57.2807 4.27202 57.1718 4.46378C57.0653 4.65554 57.0132 4.86979 57.0155 5.10653C57.0155 5.34564 57.0676 5.56108 57.1718 5.75284C57.2783 5.94223 57.4227 6.09375 57.605 6.20739C57.7897 6.31866 58.0004 6.37429 58.2371 6.37429C58.4147 6.37429 58.5792 6.34115 58.7307 6.27486C58.8823 6.20857 59.0136 6.11742 59.1249 6.00142C59.2386 5.88305 59.3273 5.74692 59.3913 5.59304C59.4552 5.43916 59.4871 5.2758 59.4871 5.10298C59.4848 4.87334 59.4303 4.66264 59.3238 4.47088C59.2172 4.27912 59.0705 4.12524 58.8834 4.00923C58.6964 3.89323 58.4857 3.83523 58.2513 3.83523ZM62.2709 10V8.89205L64.8596 6.49503C65.0798 6.28196 65.2645 6.0902 65.4136 5.91974C65.5651 5.74929 65.6799 5.58239 65.7581 5.41903C65.8362 5.25331 65.8753 5.07457 65.8753 4.88281C65.8753 4.66974 65.8267 4.48627 65.7297 4.33239C65.6326 4.17614 65.5 4.05658 65.3319 3.97372C65.1638 3.88849 64.9733 3.84588 64.7602 3.84588C64.5377 3.84588 64.3435 3.89086 64.1778 3.98082C64.0121 4.07079 63.8843 4.19981 63.7943 4.3679C63.7043 4.53598 63.6593 4.73603 63.6593 4.96804H62.1998C62.1998 4.49219 62.3076 4.07907 62.523 3.72869C62.7384 3.37831 63.0403 3.10724 63.4285 2.91548C63.8168 2.72372 64.2642 2.62784 64.7709 2.62784C65.2917 2.62784 65.7451 2.72017 66.1309 2.90483C66.5192 3.08712 66.821 3.34044 67.0365 3.66477C67.2519 3.98911 67.3596 4.3608 67.3596 4.77983C67.3596 5.05445 67.3052 5.32552 67.1963 5.59304C67.0897 5.86056 66.8992 6.15767 66.6245 6.48438C66.3499 6.80871 65.9629 7.19815 65.4633 7.6527L64.4015 8.69318V8.7429H67.4555V10H62.2709Z"
+                                fill="white" />
+                        </svg>
+                    </div>
+                    <div class="clock" name="clock"
+                        style="left: 30px; top: 50%; transform: translateY(-50%); position: absolute; text-align: center; color: black; font-size: 18px; font-family: Inter; font-weight: 700; word-wrap: break-word">
+                        14:40</div>
+
+                </div>
+
+                <div class="main-screen-area" name="main-screen-area">
+
+                    <div class="top-container">
+                        <div class="top-band"
+                            style="padding-left: 20px; padding-right: 20px; display: flex; flex-direction: row; justify-content: center; align-items: center;">
+
+                            <div class="back-arrow" name="back-arrow">
+                                <svg width="100%" height="100%" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M13.5 1L2 12.5M2 12.5L13.5 24.5M2 12.5H25.5" stroke="#1E1E1E"
+                                        stroke-width="2" stroke-linecap="round" />
+                                </svg>
+                            </div>
+
+                            <div name="top-dropdown"
+                                style="width: 60px; height: 25px; position: relative; display: flex; flex-direction: row; align-items: center; align-self: center;">
+                                <div
+                                    style="text-align: center; color: black; font-size: 20px; font-family: Inter; font-weight: 600; word-wrap: break-word">
+                                    跑步</div>
+                                <div class="dropdown-button">
+                                    <svg width="14px" height="11px" viewBox="0 0 14 11" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M13 1H1L7 8.5L13 1Z" fill="#1E1E1E" stroke="#1E1E1E" stroke-width="3"
+                                            stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </div>
+                            </div>
+
+                            <div name="share-button" class="share-button">
+                                <svg width="28" height="24" viewBox="0 0 28 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M14 4L4 20H24" stroke="#1E1E1E" stroke-width="2" stroke-linejoin="round" />
+                                    <circle cx="14" cy="4" r="3" fill="#F3F4F6" stroke="black" stroke-width="2" />
+                                    <circle cx="4" cy="20" r="3" fill="#F3F4F6" stroke="black" stroke-width="2" />
+                                    <circle cx="24" cy="20" r="3" fill="#F3F4F6" stroke="black" stroke-width="2" />
+                                </svg>
+                            </div>
+
+                        </div>
+
+                        <div class="time-scale"
+                            style="padding-left: 20%;padding-right: 20%; height: 80px; position: relative; display:flex; flex-direction: row; justify-content: space-between; align-items: center;">
+                            <div
+                                style="width: 42.79px; height: 32.54px;  position: relative; text-align: center; color: #818181; font-size: 20px; font-family: PF_H; font-weight: 600; word-wrap: break-word">
+                                周</div>
+                            <div
+                                style="width: 42.79px; height: 32.54px; position: relative; text-align: center; color: #FF6815; font-size: 20px; font-family: PF_H; font-weight: 600; word-wrap: break-word">
+                                月
+                                <div
+                                    style="width: 38px; height: 0px; top: 34px; position: absolute; border: 2px #FF6815 solid">
+                                </div>
+                            </div>
+                            <div
+                                style="width: 42.79px; height: 32.54px;  position: relative; text-align: center; color: #818181; font-size: 20px; font-family: PF_H; font-weight: 600; word-wrap: break-word">
+                                年</div>
+                            <div
+                                style="width: 42.79px; height: 32.54px;   position: relative; text-align: center; color: #818181; font-size: 20px; font-family: PF_H; font-weight: 600; word-wrap: break-word">
+                                总</div>
+
+
+                        </div>
+
+                        <div class="month-dates-scroll"
+                            style="width: 80%; height: 30px; position: relative; justify-content: space-between; align-items: center; display: flex; flex-direction: row; align-self: center;">
+                            <div class="month-button flip" id="month-button-prev">
+                                <svg width="10" height="18" viewBox="0 0 10 18" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 1L8.5 8.5L1 16.5" stroke="#D7D7D7" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </div>
+
+
+                            <div id="month-dates-text" class="month-dates-text">2024年5月1日 至 2024年5月31日</div>
+
+                            <div class="month-button" id="month-button-next">
+                                <svg width="10" height="18" viewBox="0 0 10 18" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 1L8.5 8.5L1 16.5" stroke="#D7D7D7" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </div>
+
+
+                        </div>
+
+                        <div class="current-date-dist"
+                            style="height: 90px; position: relative; display:flex; flex-direction: column; justify-content: center;">
+                            <div id="current-date-text"
+                                style="position: relative; text-align: center; color: #656565; font-size: 15px; font-family: PF_M; font-weight: 400; word-wrap: break-word">
+                                5月25日</div>
+                            <div style="position: relative; text-align: center"><span id="current-date-dist-text"
+                                    style="color: black; font-size: 36px; font-family: Arial; font-weight: 400; word-wrap: break-word">4.45</span><span
+                                    style="color: black; font-size: 12px; font-family: PF_M; font-weight: 400; word-wrap: break-word">
+                                    公里</span>
+                            </div>
+                        </div>
+
+                        <div class="chart-container">
+                            <div class="chart-background" style="width: 100%; height: 100%;  position: absolute; ">
+
+                                <div
+                                    style="height: 100%; display: flex; flex-direction: column-reverse; justify-content: space-between;">
+                                    <div class="chart-background-line">
+                                        <div id="scale-0" class="chart-scale-text">
+                                            0</div>
+                                    </div>
+                                    <div class="chart-background-line">
+                                        <div id="scale-1" class="chart-scale-text">
+                                            2</div>
+                                    </div>
+                                    <div class="chart-background-line">
+                                        <div id="scale-2" class="chart-scale-text">
+                                            3</div>
+                                    </div>
+                                    <div class="chart-background-line">
+                                        <div id="scale-3" class="chart-scale-text">
+                                            4</div>
+                                    </div>
+                                    <div class="chart-background-line">
+                                        <div id="scale-4" class="chart-scale-text">
+                                            6</div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="bar-chart" id="bar-chart">
+                                <div id="current-date-line"
+                                    style="left:0px; width:1px; height: 100%; position: absolute;">
+                                    <svg width="1px" height="100%" viewBox="0 0 1 173" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M0.5 0.5V172.5" stroke="url(#paint0_linear_99_79)" stroke-width="1" />
+                                        <defs>
+                                            <linearGradient id="paint0_linear_99_79" x1="1" y1="0.5" x2="1" y2="172.5"
+                                                gradientUnits="userSpaceOnUse">
+                                                <stop stop-color="#656565" stop-opacity="0.0" />
+                                                <stop offset="0.5" stop-color="#6ECB59" />
+                                                <stop offset="1" stop-color="#656565" stop-opacity="0.0" />
+                                            </linearGradient>
+                                        </defs>
+                                    </svg>
+                                </div>
+
+                            </div>
+
+                            
+                        </div>
+
+                        <div class="slider-container" id="slider-container"
+                                style="width: 100%; height: 50px; position: relative">
+                                <div
+                                    style="width: 100%; height: 15px; left: 0px; top: 35px; position: absolute; background: #F6F6F6">
+                                </div>
+                                <div id="slider-handle"
+                                    style="width: 60px; height: 30px; left: 0px; top: 20px; position: absolute">
+                                    <svg width="60" height="30" viewBox="0 0 60 30" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M30.5 0C13.2869 0 17 15 0 15V30H60L60 15C44 15 47.7131 0 30.5 0Z"
+                                            fill="#F3F4F6" />
+                                        <circle cx="30.5" cy="15.5" r="11.5" fill="white" />
+                                    </svg>
+
+                                </div>
+                                <div style="width: 100%; height: 15px; top: 12px; position: absolute;display: flex; flex-direction: row; justify-content: space-between;">
+                                    <div class="slider-date-text">5月1日</div>
+                                    <div class="slider-date-text" >5月11日</div>
+                                    <div class="slider-date-text" >5月21日</div>
+                                    <div class="slider-date-text">5月31日</div>
+                                </div>
+                            </div>
+
+
+                    </div>
+
+                    <div class="bottum-container">
+                        <div style="height: 30px; position:relative;"></div>
+                        <div class="overall-dist-display"
+                            style="position: relative; display: flex; flex-direction: column; justify-content: center;">
+                            <div
+                                style="position: relative; text-align: center; color: black; font-size: 15px; font-family: PF_M; font-weight: 500; word-wrap: break-word">
+                                总距离</div>
+                            <div style="position: relative; text-align: center">
+                                <span id="total-dist"
+                                    style="color: black; font-size: 46px; font-family: PF_B; font-weight: 500; word-wrap: break-word; letter-spacing: -1px; ">0.00</span>
+                                <span
+                                    style="color: black; font-size: 16px; font-family: Inter; font-weight: 400; word-wrap: break-word">
+                                    公里</span>
+                            </div>
+
+                        </div>
+
+                        <div class="horizontal-layout">
+                            <div class="data-textbox">
+                                <div
+                                    style=" position: relative; text-align: center; color: #656565; font-size: 16px; font-family: PF_M; font-weight: 500; word-wrap: break-word">
+                                    运动次数</div>
+                                <div id="run-counts"
+                                    style="position: relative; text-align: center; color: black; font-size: 22px; font-family: PF_B; font-weight: 500; word-wrap: break-word">
+                                    0</div>
+                            </div>
+                            <div class="divider"></div>
+                            <div class="data-textbox">
+                                <div
+                                    style=" position: relative; text-align: center; color: #656565; font-size: 16px; font-family: PF_M; font-weight: 500; word-wrap: break-word">
+                                    总时长</div>
+                                <div style="position: relative; text-align: center"><span id="total-minutes"
+                                        style="color: black; font-size: 22px; font-family: PF_B; font-weight: 500; word-wrap: break-word">0.00
+                                    </span><span
+                                        style="color: #656565; font-size: 16px; font-family: PF_M; font-weight: 500; word-wrap: break-word">分钟</span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="horizontal-layout">
+                            <div class="data-textbox">
+                                <div
+                                    style=" position: relative; text-align: center; color: #656565; font-size: 16px; font-family: PF_M; font-weight: 500; word-wrap: break-word">
+                                    总热量</div>
+                                <div style="position: relative; text-align: center"><span id="total-cals"
+                                        style="color: black; font-size: 22px; font-family: PF_B; font-weight: 500; word-wrap: break-word">0
+                                    </span><span
+                                        style="color: #656565; font-size: 16px; font-family: PF_M; font-weight: 500; word-wrap: break-word">千卡</span>
+                                </div>
+                            </div>
+                            <div class="divider"></div>
+                            <div class="data-textbox">
+                                <div
+                                    style=" position: relative; text-align: center; color: #656565; font-size: 16px; font-family: PF_M; font-weight: 500; word-wrap: break-word">
+                                    平均配速</div>
+                                <div style="position: relative; text-align: center"><span id="avg-pace"
+                                        style="color: black; font-size: 22px; font-family: PF_B; font-weight: 500; word-wrap: break-word">--
+                                    </span><span
+                                        style="color: #656565; font-size: 16px; font-family: PF_M; font-weight: 500; word-wrap: break-word">
+                                        /公里</span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="horizontal-layout">
+                            <div class="data-textbox">
+                                <div
+                                    style=" position: relative; text-align: center; color: #656565; font-size: 16px; font-family: PF_M; font-weight: 500; word-wrap: break-word">
+                                    总步数</div>
+                                <div style="position: relative; text-align: center"><span id="total-steps"
+                                        style="color: black; font-size: 22px; font-family: PF_B; font-weight: 500; word-wrap: break-word">0
+                                    </span><span
+                                        style="color: #656565; font-size: 16px; font-family: PF_M; font-weight: 500; word-wrap: break-word">步</span>
+                                </div>
+                            </div>
+                            <div class="divider"></div>
+                            <div class="data-textbox">
+
+                            </div>
+
+                        </div>
+                        <div style="height: 30px; position:relative;"></div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script src="script.js"> </script>
+</body>
+
+</html>

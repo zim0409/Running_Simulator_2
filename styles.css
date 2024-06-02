@@ -1,0 +1,312 @@
+@font-face {
+    font-family: 'PF_R';
+    src: url('./fonts/PingFang Regular.ttf');
+}
+@font-face {
+    font-family: 'PF_M';
+    src: url('./fonts/PingFang Medium.ttf');
+}
+@font-face {
+    font-family: 'PF_M';
+    src: url('./fonts/PingFang Medium.ttf');
+}
+@font-face {
+    font-family: 'PF_EL';
+    src: url('./fonts/PingFang ExtraLight.ttf');
+}
+
+@font-face {
+    font-family: 'PF_B';
+    src: url('./fonts/PingFang Bold.ttf');
+}
+
+@font-face {
+    font-family: 'PF_H';
+    src: url('./fonts/PingFang Heavy.ttf');
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+    font-family: 'PF_R';
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+}
+
+.input-section {
+    margin-right: 20px;
+    font-family: 'PF_R', sans-serif;
+}
+
+#submit-button {
+    background-color: chartreuse; /* Change the background color */
+    color: black; /* Optional: Change the text color */
+    padding: 10px 20px; /* Optional: Add padding */
+    font-size: 16px; /* Optional: Adjust font size */
+    cursor: pointer; /* Optional: Change cursor to pointer */
+}
+
+#submit-button:hover {
+    background-color: darkgreen; /* Optional: Change background color on hover */
+}
+
+.phone-screen {
+    border: 1px solid #ccc;
+    border-radius: 0;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 0px;
+    box-sizing: border-box;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    font-family: 'PF_R', sans-serif;
+    width: 430px;
+    height: 932px;
+}
+
+.top-bar {
+    width: 100%;
+    height: 50px;
+    left: 0px;
+    top: 0px;
+    right: 0px;
+    position: absolute;
+    background: #ffffff
+}
+
+.main-screen-area {
+    width: 100%;
+    height: calc(100% - 50px);
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    position: absolute;
+    background: #505050;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+.top-container {
+    flex: 1;
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+    
+}
+.bottum-container {
+    flex: 1;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    background: #F3F4F6;
+}
+
+.horizontal-layout
+{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.data-textbox {
+    width: 50%;
+    height: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    /* background: rgb(0, 255, 242); */
+}
+.divider{
+    width: 2px;
+    height: 30px;
+    background: #b8b8b8;
+}
+
+h1, h2 {
+    text-align: center;
+    font-family: 'PF_R';
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-top: 10px;
+}
+
+input, select {
+    margin-bottom: 10px;
+    padding: 8px;
+    font-size: 16px;
+}
+
+button {
+    padding: 10px;
+    font-size: 16px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+#screenshot-btn {
+    margin-top: 20px;
+}
+
+canvas {
+    width: 100%;
+    height: 300px;
+}
+
+.dropdown-button {
+    width: 20px;
+    height: 15px;
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    /* position: relative;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box; */
+}
+
+.back-arrow {
+    width: 27px;
+    height: 26px;
+    left: 20px;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0; /* Ensure there is no padding in the div */
+    box-sizing: border-box; /* Include border in the width and height */
+}
+
+.share-button {
+    width: 28px;
+    height: 22px;
+    right: 20px;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.month-dates-text {
+  
+    text-align: center;
+    color: #656565;
+    font-size: 17px;
+    font-family: 'PF_M';
+    font-weight: 400;
+    white-space: nowrap;  
+    flex-grow: 1;
+    /* word-wrap: break-word" */
+}
+
+.month-button {
+    width: 10px;
+    height: 18px;
+    /* position: absolute; */
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    background: rgb(255, 255, 255);
+    cursor: pointer;
+}
+
+/* .month-button.next {
+    left: 358px;
+    top: 8px; 
+} */
+
+.month-button.flip {
+    /* left: 15.50px;
+    top: 24px; */
+    transform: rotate(-180deg);
+    transform-origin: 5 9;
+}
+
+.svg-content {
+    width: 120%;
+    height: 120%;
+    align-items: center;
+}
+
+.chart-container {
+    width: 378px;
+    height: 173.50px;
+    position: relative;
+    align-self: center;
+}
+
+.chart-background-line {
+    
+    height: 0px;
+    width: 95%;
+    position: relative;
+    border: 1px #E5E5E5 solid;
+    display: flex;
+    align-items: center;
+}
+
+.chart-scale-text {
+    right: -15px;
+    position: absolute;
+    text-align: center;
+    color: #818181;
+    font-size: 12px;
+    font-family: Inter;
+    font-weight: 400;
+    word-wrap: break-word
+}
+
+.bar-chart {
+    width: 93%;
+    height: 100%;
+    position: absolute;
+}
+
+.bar {
+    position: absolute;
+    bottom: 0;
+    width: 4px;
+    border-radius: 2px;
+    background-color: #A4E6A8;
+}
+
+.bar.highlight {
+    background-color: #6ECB59;
+}
+
+.slider-date-text {
+    left: 0px;
+    top: 0px;
+    position: relative;
+    text-align: center;
+    color: #818181;
+    font-size: 11px;
+    font-family: Inter;
+    font-weight: 400;
+    white-space: nowrap;  
+    flex-grow: 1;
+    font-family: 'PF_R';
+}
+
+.phone-screen-text{
+    font-family: 'PF_R';
+}
