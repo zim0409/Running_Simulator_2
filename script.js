@@ -487,7 +487,7 @@ function updateRunsMetrics() {
     const bodyWeight = parseFloat(document.getElementById('body-weights').value);;
 
 
-    const runStrideLength = bodyHeight * 0.42;; // 跑步步长（米）
+    const runStrideLength = bodyHeight * 0.42; // 跑步步长（米）
     const walkStrideLength = bodyHeight * 0.4; // 走路步长（米）
     const runPercentage = 0.7; // 跑步的百分比
     const walkPercentage = 0.3; // 走路的百分比
