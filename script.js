@@ -504,7 +504,7 @@ function updateRunsMetrics() {
     const runSteps = runDistance / runStrideLength;
     const walkSteps = walkDistance / walkStrideLength;
     // 总步数
-    const totalSteps = 3000;//runSteps + walkSteps;
+    const totalSteps = runSteps + walkSteps;
 
 
     // 计算跑步和走路的时间（分钟）
